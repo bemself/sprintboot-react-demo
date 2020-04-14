@@ -1,37 +1,57 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios'
-//import retrieveAllCourses from '../service/CourseDataService'
+import CourseDataService from '../service/CourseDataService'
 
-const INSTRUCTOR = "DEMO"
-const COURSE_API_URL = "http://localhost:8080"
-const INSTRUCTOR_API_URL = `${COURSE_API_URL}/instructors/${INSTRUCTOR}/courses`
-
-function retrieveAllCourses(name){
-        return axios.get(
-            `${INSTRUCTOR_API_URL}`
-        )
-        }
 
 export default function ListCoursesComponent (props){
-    const [courses, setCourses] = useState("[]")
-    const [mesage, setMessage] = useState("")
-    // this useEffect is not fired...
+    const [courses, setCourses] = useState([{"id":2,"username":"demo","description":"learn js"},{"id":3,"username":"demo","description":"learn react"}])
+    const [instructorName] =  useState("DEMO")
+    const [message, setMessage] = useState("")
+
     useEffect (()=> {
-        retrieveAllCourses(INSTRUCTOR)// thus this returns error "Object doesn't support property or method 'map'"
+        CourseDataService.retrieveCourses(instructorName)
         .then(
           response=> {
               console.log(response)
               setCourses(response.data)
           }
-        )}, []
         )
+        }, [1] //[courses]
+        )
+
+
+    function deleteCourseClicked(id){
+        CourseDataService.deleteCourse(id)
+        .then(
+            response=> {
+                setMessage(`Delete of course ${id} Successful`);
+
+            }
+        )
+    }
+
+    function updateCourseClicked(name, id, course){
+        console.log('update ' + id)
+        props.history.push(`/courses/${id}`) // this is for later use in CourseComponent where id is retrieved from the path param
+
+        console.log("props updated:", props)
+        }
+
+    function addCourseClicked(course){
+        props.history.push(`/courses/-1`)
+    }
 
 
     return (
 
     <div className="container">
-                    <h3>All Courses</h3>
+    <h3>All Courses</h3>
+
+       {message && <div class="alert alert-success">{message}</div>}
+
                     <div className="container">
+                    <div className="row">
+                        <button className="btn btn-success" onClick={()=>addCourseClicked()}>Add</button>
+                    </div>
                         <table className="table">
                             <thead>
                                 <tr>
@@ -45,7 +65,14 @@ export default function ListCoursesComponent (props){
                                 <tr key={course.id}>
                                     <td>{course.id}</td>
                                     <td>{course.description}</td>
-
+                                    <td><button className="btn btn-warning" onClick={()=>updateCourseClicked(instructorName, course.id, course)}>
+                                         Update
+                                         </button>
+                                     </td>
+                                    <td><button className="btn btn-warning" onClick={()=>deleteCourseClicked(course.id)}>
+                                        Delete
+                                        </button>
+                                    </td>
                                 </tr>
                                 )
                                }

@@ -3,10 +3,9 @@ package com.example.dashboard.resource;
 import com.example.dashboard.model.Course;
 import com.example.dashboard.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +16,34 @@ public class CourseResource {
     private CourseService courseService;
 
     @GetMapping("/instructors/{username}/courses")
-    public List<Course> getAllCourses(){
+    public List<Course> getAllCourses(@PathVariable String username){
         return courseService.findAll();
+    }
+
+    @GetMapping("/instructors/{username}/courses/{id}")
+    public Course getCourse(@PathVariable String username, @PathVariable long id){
+        return courseService.findById(id);
+    }
+
+    @DeleteMapping("/instructors/{username}/courses/{id}")
+    public ResponseEntity<Void> deleteCourse(@PathVariable String username, @PathVariable long id){
+        Course course = courseService.deleteById(id);
+        if (course == null)
+            return ResponseEntity.notFound().build();
+        else
+            return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/instructors/{username}/courses/{id}")
+    public ResponseEntity<Course> updateCourse(@PathVariable String username, @PathVariable long id, @RequestBody Course course){
+       courseService.save(course);
+       return new ResponseEntity<>(course, HttpStatus.OK);
+    }
+
+
+    @PostMapping("/instructors/{username}/courses")
+    public ResponseEntity<Course> updateCourse(@PathVariable String username, @RequestBody Course course){
+        courseService.save(course);
+        return new ResponseEntity<>(course, HttpStatus.OK);
     }
 }
