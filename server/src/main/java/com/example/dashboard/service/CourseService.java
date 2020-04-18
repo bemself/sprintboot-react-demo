@@ -48,13 +48,16 @@ public class CourseService {
         }
     }
 
-    public void save(Course course) {
-        if (course.getId()!=-1 || course.getId()!=0){
+    public Course save(Course course) {
+        System.out.println(course.getId());
+        System.out.println(course.getId()==-1);
+        if (course.getId()==-1 || course.getId()==0){
             course.setId(++counter);
             courses.add(course);
         } else{
-            deleteById(course.getId());
-            courses.add(course);
+            updateById(course.getId(), course);
         }
+        return course;
     }
+
 }

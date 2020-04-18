@@ -2,11 +2,14 @@ package com.example.dashboard.resource;
 
 import com.example.dashboard.model.Course;
 import com.example.dashboard.service.CourseService;
+import com.sun.jndi.toolkit.url.Uri;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @CrossOrigin(origins = {"http://localhost:3000","http://localhost:4200"})
@@ -42,8 +45,12 @@ public class CourseResource {
 
 
     @PostMapping("/instructors/{username}/courses")
-    public ResponseEntity<Course> updateCourse(@PathVariable String username, @RequestBody Course course){
-        courseService.save(course);
-        return new ResponseEntity<>(course, HttpStatus.OK);
+    public ResponseEntity<Course> createCourse(@PathVariable String username, @RequestBody Course course){
+        Course createdCourse = courseService.save(course);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(createdCourse.getId())
+                .toUri();
+        return ResponseEntity.created(uri).build();
+
     }
 }
