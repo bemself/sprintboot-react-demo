@@ -66,8 +66,7 @@ const useStyles = makeStyles(styles);
 
 
   function loadProject(project){
-//    alert("count:", count + 1)
-    return loadJson(`./${project}.json`).then(data=>{
+        return loadJson(`./${project}.json`).then(data=>{
             console.log("data:", data)
             let tmpProject = {
                 [project]: data[project]
@@ -78,37 +77,24 @@ const useStyles = makeStyles(styles);
         )
   }
 
+  function loadProjects(){
+    let tmpProjects = []
+    projectList.forEach(p=>{
+        loadProject(p).then(project=>{
+            tmpProjects.push(project)
+        })
+    })
+    return tmpProjects
+  }
 
 export default function Dashboard() {
   const classes = useStyles();
-  let [ projects, setProjects] = useState([])
+  let [ projects, setProjects] = useState(loadProjects())
   const flexContainer = {
     display: 'flex',
     flexDirection: 'row',
     padding: 10,
   };
-
-  function loadProjects(){
-    let tmpProjects = []//[...projects] //JSON.parse(JSON.stringify(projects))
-    console.log("0-tmpProjects:", tmpProjects)
-    projectList.forEach(p=>{
-        console.log("0-loadProject(p):", loadProject(p))
-        loadProject(p).then(project=>{
-            tmpProjects.push(project)
-        })
-    })
-    console.log("2-tmpProjects:", tmpProjects)
-    setProjects(tmpProjects)
-  }
-
-
-  useEffect(()=>{
-       alert("yes")
-       loadProjects(projectList)
-    }
-    , [projectList]
-  )
-
 
     console.log("projects after set:", projects)
 
@@ -116,37 +102,29 @@ export default function Dashboard() {
         console.log("projects in createCard:", projects.length, projects)
         projects.forEach(x=>alert("project:", x))
         return projects.map(project=> {
-//            alert(project['p2']['js']['scan']['status'])
             return <Card>
                       <CardHeader color="warning" stats icon>
-
                         <CardIcon color="danger">
                           <Icon>project</Icon>
                         </CardIcon>
                         <p className={classes.cardCategory}>
-
                         </p>
                         <h3 className={classes.cardTitle}>
                           <Typography><Done/>{project['ui-analysis']['status']}</Typography>
                           <Typography><Timelapse/>{project['duration']}s</Typography>
-
                         </h3>
                       </CardHeader>
                         <CardBody>
                           <Typography>JS: {project['countJsActual']}/{project['countJsExpected']} </Typography>
-
                         </CardBody>
-
                       <CardFooter stats>
                         <div className={classes.stats}>
                         <Grid container direction="row" justify="center" alignItems="center">
                          <GridItem lg={24}>
-
                           <DateRange />
                           {project['executedAt']}
                         </GridItem>
                          <GridItem lg={12}></GridItem>
-
                          <GridItem lg={12}>
                           <a href="#pablo" onClick={e => e.preventDefault()}>
                             View Details

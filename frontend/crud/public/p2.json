@@ -1,13 +1,20 @@
 {
+  "p2": {
+    "js": {
+      "scan": {
+        "log": "PASS",
+        "result-url": "http://localhost:8000/dashboard/index/",
+        "duration(s)": "12.502",
+        "task-url": "http://localhost:8000/api",
+        "report": "PASS"
+      },
       "ui-analysis": {
-        "status": "SUCCESS",
-        "error-message": "",
-        "executedAt": "2020-03-30T14:29:14+0530",
-        "duration(s)": 18.958,
         "issues": {
-          "status": "PASS, Actual and Expected total is matched",
-          "expected": 5,
-          "actual": 5
+          "status": "FAIL, Actual and Expected total number of issues do not match",
+          "expected": 0,
+          "actual": 54
         }
       }
+    }
+  }
 }
