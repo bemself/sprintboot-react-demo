@@ -2537,67 +2537,57 @@ add comment <svg class="tc-image-add-comment tc-image-button" height="22pt" view
 <li>
 <div class="tc-comment-entry">
 <div class="tc-comment-entry-heading">
-<a class="tc-tiddlylink tc-tiddlylink-resolves" href="#Comment%20by%20'(anonymous)'%20on%20'React%3A%20setProjects%20design%20%E6%96%B9%E6%A1%881'"> at 17:46:46 Thursday 14th May 2020</a>
+<a class="tc-tiddlylink tc-tiddlylink-resolves" href="#Comment%20by%20'(anonymous)'%20on%20'React%3A%20setProjects%20design%20%E6%96%B9%E6%A1%881'"> at 17:55:59 Thursday 14th May 2020</a>
 
 <span class=" tc-reveal">
-<span class=" tc-reveal">
-<button class="">
-
-
-cancel
-</button>
-</span>
-</span>
-
-
-<span class=" tc-reveal">
-<span class=" tc-reveal">
-<button class="">
-
-delete
-</button>
-</span>
-</span>
-
-
-<span class=" tc-reveal">
-<span class=" tc-reveal">
-<button class="">
-
-save
-</button>
-</span>
+<span class=" tc-reveal" hidden="true"></span>
 </span>
 
 
 <span class=" tc-reveal">
 <span class=" tc-reveal" hidden="true"></span>
+</span>
+
+
+<span class=" tc-reveal">
+<span class=" tc-reveal" hidden="true"></span>
+</span>
+
+
+<span class=" tc-reveal">
+<span class=" tc-reveal">
+<button class="">
+
+
+edit
+</button>
+</span>
 </span>
 
 
 </div>
 <div class="tc-comment-entry-body">
+<span class=" tc-reveal" hidden="true"></span>
 <span class=" tc-reveal">
-<textarea>loadJson and loadProject are same as 方案1
-
-loadProjects inside Hook: where setProjects happens
-
-```js
-function loadProjects(){
-    let tmpProjects = []//[...projects] //JSON.parse(JSON.stringify(projects))
-    console.log(&quot;0-tmpProjects:&quot;, tmpProjects)
-    projectList.forEach(p=&gt;{
-        console.log(&quot;0-loadProject(p):&quot;, loadProject(p))
-        loadProject(p).then(project=&gt;{
+<p>loadJson and loadProject are same as 方案1</p><p>loadProjects inside Hook: where setProjects happens</p><pre class="js hljs"><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadProjects</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">let</span> tmpProjects = []<span class="hljs-comment">//[...projects] //JSON.parse(JSON.stringify(projects))</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"0-tmpProjects:"</span>, tmpProjects)
+    projectList.forEach(<span class="hljs-function"><span class="hljs-params">p</span>=&gt;</span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"0-loadProject(p):"</span>, loadProject(p))
+        loadProject(p).then(<span class="hljs-function"><span class="hljs-params">project</span>=&gt;</span>{
             tmpProjects.push(project)
         })
     })
-    console.log(&quot;2-tmpProjects:&quot;, tmpProjects)
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"2-tmpProjects:"</span>, tmpProjects)
     setProjects(tmpProjects)
-  }
-```</textarea>
+  }</code></pre>
+<div class="tc-comment-button tc-reveal">
+<button class="tc-btn-invisible">
+add comment <svg class="tc-image-add-comment tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M56 56H36a8 8 0 100 16h20v20a8 8 0 1016 0V72h20a8 8 0 100-16H72V36a8 8 0 10-16 0v20zm-12.595 58.362c-6.683 7.659-20.297 12.903-36.006 12.903-2.196 0-4.35-.102-6.451-.3 9.652-3.836 17.356-12.24 21.01-22.874C8.516 94.28 0 79.734 0 63.5 0 33.953 28.206 10 63 10s63 23.953 63 53.5S97.794 117 63 117c-6.841 0-13.428-.926-19.595-2.638z" fill-rule="evenodd"></path></svg>
+</button>
+</div>
+
 </span>
-<span class=" tc-reveal" hidden="true"></span>
 </div>
 </div>
 <div class="tc-comments">
